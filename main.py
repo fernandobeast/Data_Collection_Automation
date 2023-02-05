@@ -327,7 +327,7 @@ while option != 0:
             selenium_driver = webdriver.Chrome(web_driver_path)
 
             # The website we need to access
-            selenium_driver.get('https://www.nasdaq.com/market-activity/stocks/cosm')
+            selenium_driver.get(f'https://www.nasdaq.com/market-activity/stocks/{ticker}')
 
             # wait for the "Accept Cookies" button to appear
             selenium_wait = WebDriverWait(selenium_driver, 10)
