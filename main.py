@@ -150,7 +150,7 @@ def hod_volbo_5mins_high(voldata):
     HOD = HOD_mkt_time.loc[HOD_mkt_time_idx,'Date']
     HOD_editing.append(HOD)
     # Get the volume before breakout time
-    data_after_nine30 = voldata.loc[(voldata['Date']> f'{ending_date} 09:35:00')&(voldata['Date']<= f'{ending_date} 16:00:00')]
+    data_after_nine30 = voldata.loc[(voldata['Date']>= f'{ending_date} 09:35:00')&(voldata['Date']<= f'{ending_date} 16:00:00')]
     for row in range(len(data_after_nine30)):
         sub_row = data_after_nine30.iloc[row]
         if sub_row['High'] > fivemins_high['High']:
@@ -290,13 +290,16 @@ while option != 0:
 
         # Get intraday volume before breakout time, 5 minute high and high of the day
         hod_volbo_5mins_high(df_plot)
+        
+        if len(vol_b4_bo_time) != 0:
+            # filter out the B/O candle time 
+            min_vol_b4_bo_time = min(vol_b4_bo_time)
 
-        # filter out the B/O candle time 
-        min_vol_b4_bo_time = min(vol_b4_bo_time)
-
-        # Get the sum of the volume before breakout 5mins high
-        sum_loc = df_plot.loc[(df_plot['Date'] < min_vol_b4_bo_time )]
-        result_sum_loc = int(sum_loc['Volume'].sum())
+            # Get the sum of the volume before breakout 5mins high
+            sum_loc = df_plot.loc[(df_plot['Date'] < min_vol_b4_bo_time )]
+            result_sum_loc = int(sum_loc['Volume'].sum())
+        else:
+            result_sum_loc = 0
 
         # Get the 5 minute high
         five_mins_high = float(five_mins_high[0])
