@@ -1,0 +1,13 @@
+pandas
+numpy
+plotly
+requests
+BeautifulSoup
+selenium
+yfinance 
+pytz
+sqlalchemy 
+psycopg2
+sql_config
+IPython.display
+termcolor
