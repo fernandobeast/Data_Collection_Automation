@@ -372,6 +372,18 @@ while option != 0:
             
             # Convert dictionary to dataframe
             df = pd.DataFrame.from_dict([dic_1])
+            
+            # Validate if the data is existing in the database
+            query = 'SELECT ticker,date FROM primary_sheet'
+            duplicate_validation_df = pd.read_sql(query,con=cnx)
+            
+            # If date and ticker from new data is duplicated in the table
+            if bool(df[['date','ticker']].apply(lambda x: x.isin(duplicate_validation_df.stack())).any(axis=1)[0]) == True:
+                print('\nDuplicated data !!!!')
+                break
+            else:
+                pass
+          
             display(df)
             print(colored('-------------------------','red',attrs=['bold']))
             
