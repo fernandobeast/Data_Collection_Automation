@@ -475,4 +475,3 @@ while option != 0:
         print('Thanks for using Beast\'s Data Entering Algo')
         break    
 if __name__ == "__main__":
-    main()
